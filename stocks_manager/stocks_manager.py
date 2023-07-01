@@ -4,7 +4,7 @@ import datetime
 from pathlib import Path
 
 
-class StocksMetadata:
+class StocksManager:
     def get_companies():
         meta_df = pd.read_table("stocks_data/stocks_symbols.csv", delimiter=",")
 
