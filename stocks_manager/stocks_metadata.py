@@ -1,5 +1,5 @@
 import pandas as pd
-import os
+import datetime
 
 from pathlib import Path
 
@@ -25,6 +25,17 @@ class StocksMetadata:
         ]
 
         return companies
+
+    def get_stock_value(stock_symbol: str, date):
+        df = pd.read_table(f"stocks_data/stocks/{stock_symbol}.csv", delimiter=",")
+        date_string = date
+        try:
+            date_string = date.strftime("%Y-%m-%d")
+        except ValueError:
+            pass
+        row = df[df["Date"] == date_string]
+        value = row["Close"]
+        return value.values[0]
 
 
 class Company:
