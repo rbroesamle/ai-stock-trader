@@ -12,13 +12,15 @@ df = df.rename(
         "Article text": "text",
     }
 )
+df["date"] = pd.to_datetime(df["date"])
+df.sort_values(by="date", inplace=True, ascending=False)
 
 company_map = {}
 
 filter = Filter()
 
 for index, row in df.iterrows():
-    article = Article(row.headline, row.text, row.text)
+    article = Article(headline=row.headline, text=row.text, date=row.date)
     companies = filter.get_relevant_companies(article)
     for company in companies:
         if company_map.get(company.stock_name) is None:
