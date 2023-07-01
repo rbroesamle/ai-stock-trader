@@ -11,6 +11,10 @@ class ChatGPT:
         return 1
 
     @classmethod
-    def get_score_randomly(cls, headline, company):
+    def get_score_randomly(cls):
         # TODO Pia
-        return 1
+        import random
+        randnum = random.randint(-1, 1)
+        print(randnum)
+        return randnum
+
