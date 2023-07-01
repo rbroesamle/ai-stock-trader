@@ -1,5 +1,9 @@
 import openai
+import random
+
 openai.api_key = "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"
+
+
 class ChatGPT:
     def get_score(self, headline, company, mock=True):
         if mock:
@@ -28,7 +32,8 @@ class ChatGPT:
             print("Fehler")
 
     @classmethod
-    def get_score_randomly(cls, headline, company):
+    def get_score_randomly(cls):
         # TODO Pia
-        return 1
-
+        randnum = random.randint(-1, 1)
+        print(randnum)
+        return randnum
