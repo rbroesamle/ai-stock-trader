@@ -1,7 +1,8 @@
 import openai
 import random
+import os
 
-openai.api_key = "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"
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 class ChatGPT:
