@@ -1,4 +1,7 @@
 import pandas as pd
+import os
+
+from pathlib import Path
 
 
 class StocksMetadata:
@@ -16,6 +19,10 @@ class StocksMetadata:
                     keywords=[row["Security"]],
                 )
             )
+
+        companies = [
+            c for c in companies if Path(f"stocks_data/stocks/{c.symbol}.csv").is_file()
+        ]
 
         return companies
 
