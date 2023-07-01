@@ -1,4 +1,11 @@
 # ai-stock-trader
 
-## Branch naming convention:
-All branch names have to follow this naming pattern: issue-\<ISSUE-NUMBER\>/\<SHORT-DESCRIPTION\>
+## Setup (Unix):
+
+Run:
+
+`pip install pre-commit`
+
+Then, in the repository fonder run:
+
+`pre-commit install`
