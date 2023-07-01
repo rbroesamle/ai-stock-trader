@@ -13,7 +13,7 @@ class StocksManager:
         for _, row in meta_df.iterrows():
             companies.append(
                 Company(
-                    stock_name=row["Security"],
+                    stock_name=row["Symbol"],
                     possible_names=[row["Security"]],
                 )
             )
@@ -21,7 +21,7 @@ class StocksManager:
         companies = [
             c
             for c in companies
-            if Path(f"stocks_data/stocks/{c.stock_name}.csv").is_file()
+            if Path(f"stocks_data/stocks/{c.stock_name.upper()}.csv").is_file()
         ]
 
         return companies

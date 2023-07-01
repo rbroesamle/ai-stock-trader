@@ -26,7 +26,7 @@ for index, row in df.iterrows():
         else:
             company_map[company.stock_name].append(article)
 
-print(company_map)
 for company_name, article_list in company_map.items():
+    print(company_name)
     for article in article_list:
         print(article.headline)
