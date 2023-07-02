@@ -10,6 +10,7 @@ import lin_regression
 import datetime
 from stocks_manager.stocks_manager import StocksManager
 import matplotlib.pyplot as plt
+import json
 
 DATE_START = datetime.date(2000, 5, 19)
 DATE_END = datetime.date(2000, 5, 17)
@@ -75,6 +76,11 @@ for company_name, score_list in company_score_map.items():
 lin_regression_model, x_y_vals = lin_regression.create_lin_regression_model(
     companies_with_scores
 )
+
+dictionary = {"x": x_y_vals[0].tolist(), "y": x_y_vals[1].tolist()}
+json_object = json.dumps(dictionary, indent=4)
+with open("sample.json", "w") as outfile:
+    outfile.write(json_object)
 
 plt.scatter(x_y_vals[0].reshape((-1, 1)), x_y_vals[1], color="black")
 plt.plot(
