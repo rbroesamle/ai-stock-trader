@@ -8,7 +8,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 class ChatGPT:
     def get_score(self, headline, company, mock=True):
         if mock:
-            return self.get_score_randomly(headline, company)
+            return self.get_score_randomly()
         else:
             return self.get_score_with_chatgpt(headline, company)
 
@@ -36,5 +36,4 @@ class ChatGPT:
     def get_score_randomly(cls):
         # TODO Pia
         randnum = random.randint(-1, 1)
-        print(randnum)
         return randnum
