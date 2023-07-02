@@ -7,8 +7,12 @@ from company import Company
 import numpy as np
 from sklearn.linear_model import LinearRegression
 import lin_regression
+import datetime
 from stocks_manager.stocks_manager import StocksManager
 import matplotlib.pyplot as plt
+
+DATE_START = datetime.date(2000, 5, 19)
+DATE_END = datetime.date(2000, 5, 17)
 
 df = pd.read_csv("data/news_articles.csv")
 df = df[["Date published", "Category", "Headline", "Article text"]]
@@ -21,13 +25,15 @@ df = df.rename(
     }
 )
 df["date"] = pd.to_datetime(df["date"]).dt.date
-df.sort_values(by="date", inplace=True, ascending=False)
+rslt_df = df.loc[(DATE_START <= df["date"]) & (DATE_END <= df["date"])]
+print(len(rslt_df))
+rslt_df.sort_values(by="date", inplace=True, ascending=False)
 
 company_map = {}
 
 filter = Filter()
 
-for index, row in df.iterrows():
+for index, row in rslt_df.iterrows():
     article = Article(headline=row.headline, text=row.text, date=row.date)
     companies = filter.get_relevant_companies(article)
     for company in companies:
