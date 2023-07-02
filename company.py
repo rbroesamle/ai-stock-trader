@@ -3,6 +3,7 @@ class Company:
         self.stock_name = stock_name
         self.possible_names = possible_names
         self.relevant_articles = []
+        self.average_scores = []
 
     def append_relevant_article(self, article):
         self.relevant_articles.append(article)

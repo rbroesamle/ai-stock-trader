@@ -28,21 +28,24 @@ class StocksManager:
         return companies
 
 
-def get_stock_value(stock_symbol: str, date):
-    df = pd.read_table(f"stocks_data/stocks/{stock_symbol}.csv", delimiter=",")
-    date_string = date
-    try:
-        date_string = date.strftime("%Y-%m-%d")
-    except ValueError:
-        pass
-    row = df[df["Date"] == date_string]
-    value = row["Close"]
-    return value.values[0]
+    def get_stock_value(self, stock_symbol: str, date):
+        df = pd.read_table(f"stocks_data/stocks/{stock_symbol}.csv", delimiter=",")
+        date_string = date
+        try:
+            date_string = date.strftime("%d-%m-%Y")
+        except ValueError:
+            pass
+        row = df[df["Date"] == date_string]
+        value = row["Close"]
+        if (len(value.values)) == 0:
+            next_day = date + datetime.timedelta(days=1)
+            return self.get_stock_value(stock_symbol, next_day)
+        return value.values[0]
 
 
-def get_next_day_percentage(company, date):
-    this_day_value_abs = get_stock_value(company.stock_name, date)
-    date = date + datetime.timedelta(days=1)
-    next_day_value_abs = get_stock_value(company.stock_name, date)
-    percentage_inc = (next_day_value_abs - this_day_value_abs) / this_day_value_abs
-    return percentage_inc
+    def get_next_day_percentage(self, company, date):
+        this_day_value_abs = self.get_stock_value(company.stock_name, date)
+        date = date + datetime.timedelta(days=1)
+        next_day_value_abs = self.get_stock_value(company.stock_name, date)
+        percentage_inc = (next_day_value_abs - this_day_value_abs) / this_day_value_abs
+        return percentage_inc
