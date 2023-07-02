@@ -27,7 +27,6 @@ class StocksManager:
 
         return companies
 
-
     def get_stock_value(self, stock_symbol: str, date):
         df = pd.read_table(f"stocks_data/stocks/{stock_symbol}.csv", delimiter=",")
         date_string = date
@@ -41,7 +40,6 @@ class StocksManager:
             next_day = date + datetime.timedelta(days=1)
             return self.get_stock_value(stock_symbol, next_day)
         return value.values[0]
-
 
     def get_next_day_percentage(self, company, date):
         this_day_value_abs = self.get_stock_value(company.stock_name, date)

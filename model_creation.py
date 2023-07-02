@@ -37,7 +37,6 @@ for index, row in df.iterrows():
             company_map[company.stock_name].append(article)
 
 
-
 company_score_map = {}
 
 for company, article_list in company_map.items():
@@ -55,24 +54,30 @@ for company_name, score_list in company_score_map.items():
     company = Company(company_name, [])
     for index, score in enumerate(score_list):
         scores_of_following_dates.append(score[1])
-        if index == len(score_list)-1 or score[0] != score_list[index+1][0]:
+        if index == len(score_list) - 1 or score[0] != score_list[index + 1][0]:
             scores_of_following_dates.append(score[1])
             average_score = statistics.mean(scores_of_following_dates)
-            stock_return_percentage = StocksManager().get_next_day_percentage(company, score[0])
-            company.average_scores.append((score[0], average_score, stock_return_percentage))
+            stock_return_percentage = StocksManager().get_next_day_percentage(
+                company, score[0]
+            )
+            company.average_scores.append(
+                (score[0], average_score, stock_return_percentage)
+            )
             scores_of_following_dates = []
     companies_with_scores.append(company)
 
-lin_regression_model, x_y_vals = lin_regression.create_lin_regression_model(companies_with_scores)
+lin_regression_model, x_y_vals = lin_regression.create_lin_regression_model(
+    companies_with_scores
+)
 
-plt.scatter(x_y_vals[0].reshape((-1,1)), x_y_vals[1], color="black")
-plt.plot(x_y_vals[0].reshape((-1,1)), lin_regression_model.predict(x_y_vals[0].reshape((-1,1))), color="blue", linewidth=3)
+plt.scatter(x_y_vals[0].reshape((-1, 1)), x_y_vals[1], color="black")
+plt.plot(
+    x_y_vals[0].reshape((-1, 1)),
+    lin_regression_model.predict(x_y_vals[0].reshape((-1, 1))),
+    color="blue",
+    linewidth=3,
+)
 plt.xticks(())
 plt.yticks(())
 
 plt.show()
-
-
-
-
-
